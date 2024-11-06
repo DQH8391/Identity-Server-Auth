@@ -52,13 +52,15 @@ const deleteConfigClient = deleteOne(Client, "OAuthClient");
 const getIdConfig = async (req, res) => {
   try {
     const { id } = req.params; 
-    const config = await OauthConfig.findOne({ id });
+    console.log(id);
+    
+    const getIdConfig = await Client.findById(id);
 
-    if (!config) {
+    if (!getIdConfig) {
       return res.status(404).json({ status: 'error', message: 'client not found' });
     }
 
-    res.status(200).json({ status: 'success', data: config });
+    res.status(200).json({ status: 'success', data: getIdConfig });
   } catch (error) {
     res.status(500).json({ status: 'error', message: error.message });
   }
